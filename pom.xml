@@ -1,156 +1,86 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kaib.media</groupId>
-    <artifactId>mkv-renamer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>mkv-renamer</name>
-    <packaging>jar</packaging>
+  <groupId>com.kaib.media</groupId>
+  <artifactId>mkv-renamer</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <jlink.image.name>treefx</jlink.image.name>
-    </properties>
-    
-    
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.10.2</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <dependencyManagement>
     <dependencies>
-        <!-- JavaFX (modular) -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>22</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>22</version>
-        </dependency>
-
-        <!-- Other dependencies -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tinylog</groupId>
-            <artifactId>tinylog-api</artifactId>
-            <version>2.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tinylog</groupId>
-            <artifactId>tinylog-impl</artifactId>
-            <version>2.6.2</version>
-        </dependency>
-        
-        		<!-- Test libraries -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.10.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
 
-    <build>
-        <plugins>
-            <!-- Compiler Plugin -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <release>21</release>
-                </configuration>
-            </plugin>
+  <dependencies>
 
-            <!-- JAR Plugin to ensure output -->
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.kaib.media.renamer.MainApp</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>3.5.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf-extras</artifactId>
+      <version>3.5.4</version>
+    </dependency>
 
-            <!-- JLink Plugin -->
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-swing</artifactId>
+      <version>12.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-materialdesign2-pack</artifactId>
+      <version>12.3.1</version>
+    </dependency>
 
-            
-            <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-jlink-plugin</artifactId>
-  <version>3.2.0</version>
-  <configuration>
-    <stripDebug>true</stripDebug>
-    <compress>2</compress>
-    <noHeaderFiles>true</noHeaderFiles>
-    <noManPages>true</noManPages>
-    <outputDirectory>${project.build.directory}/maven-jlink</outputDirectory>
-    <addModules>
-      <addModule>com.kaib.media.renamer</addModule>
-      <addModule>javafx.controls</addModule>
-      <addModule>javafx.fxml</addModule>
-      <!-- Add more as needed -->
-    </addModules>
-				<launcher>treefx=com.kaib.media.renamer/com.kaib.media.renamer.MainApp</launcher>
-    <modulePaths>
-      <modulePath>${project.build.directory}/mods</modulePath>
-      <modulePath>${project.build.outputDirectory}</modulePath>
-    </modulePaths>
-  </configuration>
-</plugin>
-            
-            
-            
-            
-            <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-dependency-plugin</artifactId>
-  <version>3.6.0</version>
-  <executions>
-    <execution>
-      <id>copy-modular-deps</id>
-      <phase>prepare-package</phase>
-      <goals>
-        <goal>copy-dependencies</goal>
-      </goals>
-      <configuration>
-        <includeScope>runtime</includeScope>
-        <excludeClassifiers>win,mac,linux</excludeClassifiers>
-        <outputDirectory>${project.build.directory}/mods</outputDirectory>
-        <stripVersion>true</stripVersion>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
-        </plugins>
-    </build>
+    <dependency>
+      <groupId>com.miglayout</groupId>
+      <artifactId>miglayout-swing</artifactId>
+      <version>11.3</version>
+    </dependency>
+
+    <!-- Test libraries -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Creates an executable JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.kaib.media.renamer.MainApp</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
